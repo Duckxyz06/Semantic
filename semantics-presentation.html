@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Semantics – Ngữ Nghĩa Học</title>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&family=Fira+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════
+   ROOT & RESET
+═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:    #0F2044;
+  --blue:    #1A3F7A;
+  --blue2:   #2255A4;
+  --sky:     #3B82F6;
+  --sky-lt:  #EFF6FF;
+  --gold:    #D4A017;
+  --gold-lt: #FEF9E7;
+  --teal:    #0D7377;
+  --teal-lt: #E6F7F7;
+  --purple:  #5B2D8E;
+  --purple-lt:#F3EEF9;
+  --green:   #166534;
+  --green-lt:#F0FDF4;
+  --orange:  #C2410C;
+  --orange-lt:#FFF7ED;
+  --red:     #9B1C1C;
+  --red-lt:  #FEF2F2;
+  --gray1:   #111827;
+  --gray2:   #374151;
+  --gray3:   #6B7280;
+  --gray4:   #D1D5DB;
+  --gray5:   #F9FAFB;
+  --white:   #FFFFFF;
+  --font:    'Be Vietnam Pro', sans-serif;
+  --mono:    'Fira Mono', monospace;
+  --r:       12px;
+  --r-sm:    8px;
+  --shadow:  0 2px 12px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.14);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: #0F2044;
+  color: var(--gray1);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════════
+   STICKY TOP NAV
+═══════════════════════════════════════════ */
+.topnav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1000;
+  background: rgba(15,32,68,0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  padding: 0 20px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.topnav-brand {
+  display: flex; align-items: center; gap: 10px;
+  color: white; font-weight: 900; font-size: 16px;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+}
+.topnav-brand .brand-icon {
+  width: 34px; height: 34px;
+  background: var(--sky);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; flex-shrink: 0;
+}
+.nav-center {
+  display: flex; align-items: center; gap: 4px;
+  overflow-x: auto; scrollbar-width: none;
+  flex: 1; justify-content: center;
+}
+.nav-center::-webkit-scrollbar { display: none; }
+.nav-pill {
+  padding: 5px 14px;
+  border-radius: 50px;
+  border: 1px solid rgba(255,255,255,0.18);
+  color: rgba(255,255,255,0.7);
+  font-size: 12px; font-weight: 700;
+  cursor: pointer; white-space: nowrap;
+  transition: all 0.2s;
+  background: transparent;
+  font-family: var(--font);
+}
+.nav-pill:hover, .nav-pill.active {
+  background: var(--sky);
+  border-color: var(--sky);
+  color: white;
+}
+
+/* LANG TOGGLE */
+.lang-toggle {
+  display: flex; align-items: center;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50px;
+  padding: 3px;
+  gap: 2px;
+  border: 1px solid rgba(255,255,255,0.15);
+  flex-shrink: 0;
+}
+.lang-btn {
+  padding: 5px 13px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-size: 12px; font-weight: 800;
+  font-family: var(--font);
+  transition: all 0.2s;
+  background: transparent;
+  color: rgba(255,255,255,0.6);
+  display: flex; align-items: center; gap: 5px;
+}
+.lang-btn.active {
+  background: white;
+  color: var(--navy);
+}
+.lang-btn .flag { font-size: 14px; }
+
+/* ═══════════════════════════════════════════
+   MAIN WRAPPER
+═══════════════════════════════════════════ */
+.wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 80px 16px 60px;
+}
+
+/* ═══════════════════════════════════════════
+   HERO
+═══════════════════════════════════════════ */
+.hero {
+  background: linear-gradient(135deg, #0F2044 0%, #1A3F7A 60%, #2255A4 100%);
+  border-radius: 20px;
+  padding: 48px 36px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 260px; height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(59,130,246,0.2) 0%, transparent 70%);
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: -40px; left: -40px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,160,23,0.15) 0%, transparent 70%);
+}
+.hero-tag {
+  display: inline-block;
+  background: rgba(59,130,246,0.25);
+  border: 1px solid rgba(59,130,246,0.4);
+  border-radius: 50px;
+  padding: 5px 16px;
+  font-size: 12px; font-weight: 800;
+  color: #93C5FD;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.hero h1 {
+  font-size: clamp(28px, 6vw, 52px);
+  font-weight: 900;
+  color: white;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  margin-bottom: 8px;
+}
+.hero-sub {
+  font-size: clamp(14px, 3vw, 18px);
+  color: rgba(255,255,255,0.65);
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+.hero-meta {
+  display: flex; flex-wrap: wrap; align-items: center;
+  justify-content: center; gap: 16px;
+}
+.hero-chip {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px;
+  padding: 7px 14px;
+  color: white; font-size: 13px; font-weight: 600;
+  display: flex; align-items: center; gap: 6px;
+}
+
+/* ═══════════════════════════════════════════
+   TABLE OF CONTENTS
+═══════════════════════════════════════════ */
+.toc {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-bottom: 32px;
+}
+.toc-item {
+  background: white;
+  border-radius: var(--r);
+  padding: 14px 16px;
+  display: flex; align-items: center; gap: 12px;
+  cursor: pointer;
+  border: 2px solid var(--gray4);
+  transition: all 0.2s;
+  text-decoration: none;
+  color: var(--gray1);
+}
+.toc-item:hover {
+  border-color: var(--sky);
+  box-shadow: 0 4px 16px rgba(59,130,246,0.15);
+  transform: translateY(-2px);
+}
+.toc-num {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 900;
+  color: white; flex-shrink: 0;
+}
+.toc-label { font-size: 13px; font-weight: 700; line-height: 1.3; }
+.toc-sub { font-size: 11px; font-weight: 500; color: var(--gray3); margin-top: 2px; }
+
+/* ═══════════════════════════════════════════
+   SECTION HEADINGS
+═══════════════════════════════════════════ */
+.section { margin-bottom: 32px; scroll-margin-top: 72px; }
+.section-header {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 20px;
+  border-radius: var(--r) var(--r) 0 0;
+  color: white; font-size: 16px; font-weight: 900;
+  text-transform: uppercase; letter-spacing: 0.4px;
+}
+.section-body {
+  background: white;
+  border-radius: 0 0 var(--r) var(--r);
+  border: 2px solid;
+  border-top: none;
+  overflow: hidden;
+}
+.sh-num {
+  width: 30px; height: 30px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; font-weight: 900; flex-shrink: 0;
+}
+
+/* Colors */
+.c-blue .section-header  { background: var(--blue2); }
+.c-blue .section-body    { border-color: var(--blue2); }
+.c-teal .section-header  { background: var(--teal); }
+.c-teal .section-body    { border-color: var(--teal); }
+.c-purple .section-header{ background: var(--purple); }
+.c-purple .section-body  { border-color: var(--purple); }
+.c-navy .section-header  { background: var(--navy); }
+.c-navy .section-body    { border-color: var(--navy); }
+.c-green .section-header { background: var(--green); }
+.c-green .section-body   { border-color: var(--green); }
+
+/* ═══════════════════════════════════════════
+   CONCEPT CARDS
+═══════════════════════════════════════════ */
+.concepts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0;
+}
+.concept-card {
+  padding: 18px 20px;
+  border-bottom: 1px solid #F3F4F6;
+  border-right: 1px solid #F3F4F6;
+  transition: background 0.15s;
+}
+.concept-card:hover { background: #F9FAFB; }
+.cc-num-row {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 8px;
+}
+.cc-num {
+  width: 26px; height: 26px;
+  border-radius: 6px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; font-weight: 900; color: white;
+  flex-shrink: 0;
+}
+.cc-title { font-size: 14px; font-weight: 900; color: var(--gray1); }
+.cc-subtitle { font-size: 11px; font-weight: 600; color: var(--gray3); font-style: italic; }
+.cc-def { font-size: 13px; color: var(--gray2); line-height: 1.55; margin-bottom: 8px; }
+.cc-vi { font-size: 12.5px; color: var(--gray3); line-height: 1.5; margin-bottom: 8px; font-style: italic; border-left: 3px solid var(--gray4); padding-left: 10px; }
+.cc-examples { margin-top: 8px; }
+.cc-ex-label {
+  font-size: 10.5px; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.5px; color: var(--gray3); margin-bottom: 5px;
+}
+.cc-ex-item {
+  background: #F9FAFB;
+  border-radius: 6px;
+  padding: 7px 10px;
+  margin-bottom: 5px;
+  font-size: 12.5px;
+  border-left: 3px solid var(--gray4);
+}
+.cc-ex-item .en { color: var(--gray2); font-weight: 600; }
+.cc-ex-item .vi { color: var(--gray3); font-size: 12px; font-style: italic; margin-top: 2px; }
+
+/* highlighted example */
+.ex-highlight {
+  display: inline-block;
+  background: #DBEAFE;
+  color: var(--blue2);
+  border-radius: 4px;
+  padding: 1px 6px;
+  font-weight: 800;
+  font-family: var(--mono);
+  font-size: 12px;
+}
+.ex-arrow { color: var(--sky); font-weight: 900; margin: 0 3px; }
+
+/* SUBTYPES */
+.subtype-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.subtype-box {
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  border: 1.5px solid var(--gray4);
+}
+.subtype-box-h {
+  padding: 6px 10px;
+  font-size: 11.5px; font-weight: 900;
+  color: white;
+  text-transform: uppercase; letter-spacing: 0.3px;
+}
+.subtype-box-b {
+  padding: 8px 10px;
+  font-size: 12px; color: var(--gray2);
+  line-height: 1.5;
+}
+
+/* ═══════════════════════════════════════════
+   FULL-WIDTH CONCEPT CARD (for detailed ones)
+═══════════════════════════════════════════ */
+.concept-full {
+  padding: 20px 24px;
+  border-bottom: 1px solid #F3F4F6;
+}
+.concept-full:last-child { border-bottom: none; }
+
+/* ═══════════════════════════════════════════
+   TABLE
+═══════════════════════════════════════════ */
+.bi-table {
+  width: 100%; border-collapse: collapse;
+  font-size: 13px;
+}
+.bi-table th {
+  padding: 10px 14px;
+  background: var(--gray5);
+  font-weight: 900; font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.4px;
+  color: var(--gray2);
+  border-bottom: 2px solid var(--gray4);
+  text-align: left;
+}
+.bi-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #F3F4F6;
+  vertical-align: top; line-height: 1.5;
+}
+.bi-table tr:last-child td { border-bottom: none; }
+.bi-table tr:nth-child(even) td { background: #FAFAFA; }
+
+/* ═══════════════════════════════════════════
+   DEFINITION BOX
+═══════════════════════════════════════════ */
+.def-box {
+  border-radius: var(--r-sm);
+  padding: 12px 16px;
+  margin-bottom: 12px;
+  border-left: 4px solid;
+  font-size: 13.5px;
+}
+.def-box.blue  { background: var(--sky-lt); border-color: var(--sky); color: var(--blue); }
+.def-box.teal  { background: var(--teal-lt); border-color: var(--teal); color: var(--teal); }
+.def-box.purple{ background: var(--purple-lt); border-color: var(--purple); color: var(--purple); }
+.def-box.green { background: var(--green-lt); border-color: var(--green); color: var(--green); }
+.def-box.gold  { background: var(--gold-lt); border-color: var(--gold); color: #92400E; }
+
+/* ═══════════════════════════════════════════
+   COMPARE GRID
+═══════════════════════════════════════════ */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+.compare-box {
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  border: 2px solid;
+}
+.compare-box-h {
+  padding: 8px 12px;
+  font-size: 12.5px; font-weight: 900;
+  color: white; text-align: center;
+}
+.compare-box-b {
+  padding: 10px 12px;
+  font-size: 12.5px; color: var(--gray2);
+  line-height: 1.55;
+}
+.cb-blue { border-color: var(--blue2); }
+.cb-blue .compare-box-h { background: var(--blue2); }
+.cb-blue .compare-box-b { background: var(--sky-lt); }
+.cb-teal { border-color: var(--teal); }
+.cb-teal .compare-box-h { background: var(--teal); }
+.cb-teal .compare-box-b { background: var(--teal-lt); }
+.cb-purple { border-color: var(--purple); }
+.cb-purple .compare-box-h { background: var(--purple); }
+.cb-purple .compare-box-b { background: var(--purple-lt); }
+.cb-green { border-color: var(--green); }
+.cb-green .compare-box-h { background: var(--green); }
+.cb-green .compare-box-b { background: var(--green-lt); }
+.cb-orange { border-color: var(--orange); }
+.cb-orange .compare-box-h { background: var(--orange); }
+.cb-orange .compare-box-b { background: var(--orange-lt); }
+.cb-gold { border-color: var(--gold); }
+.cb-gold .compare-box-h { background: var(--gold); }
+.cb-gold .compare-box-b { background: var(--gold-lt); }
+
+/* ═══════════════════════════════════════════
+   ROLE TABLE (Thematic Roles)
+═══════════════════════════════════════════ */
+.role-item {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 10px 14px;
+  border-bottom: 1px solid #F3F4F6;
+}
+.role-item:last-child { border-bottom: none; }
+.role-tag {
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11.5px; font-weight: 900;
+  color: white; text-align: center;
+  align-self: start;
+}
+.role-content { font-size: 13px; color: var(--gray2); line-height: 1.5; }
+.role-content .role-vi { font-style: italic; color: var(--gray3); font-size: 12px; }
+.role-content .role-ex { font-family: var(--mono); font-size: 12px; color: var(--gray3); margin-top: 3px; }
+
+/* ═══════════════════════════════════════════
+   TREE DIAGRAM (simple CSS)
+═══════════════════════════════════════════ */
+.tree-diagram {
+  background: var(--gray5);
+  border-radius: var(--r-sm);
+  padding: 16px 20px;
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--gray2);
+  overflow-x: auto;
+  margin-top: 10px;
+  line-height: 2;
+}
+
+/* ═══════════════════════════════════════════
+   FEATURE TABLE
+═══════════════════════════════════════════ */
+.feat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.feat-box {
+  background: var(--gray5);
+  border-radius: var(--r-sm);
+  padding: 10px 12px;
+  border: 1.5px solid var(--gray4);
+}
+.feat-box-title { font-size: 12px; font-weight: 900; color: var(--gray1); margin-bottom: 4px; }
+.feat-box-sub   { font-size: 11.5px; color: var(--gray3); font-style: italic; margin-bottom: 6px; }
+.feat-box-ex    { font-family: var(--mono); font-size: 11.5px; color: var(--gray2); }
+
+/* ═══════════════════════════════════════════
+   LANG VISIBILITY
+═══════════════════════════════════════════ */
+.vi-only { display: none; }
+.en-only { display: inline; }
+body.lang-vi .vi-only { display: inline; }
+body.lang-vi .en-only { display: none; }
+/* block-level */
+.vi-block { display: none; }
+.en-block { display: block; }
+body.lang-vi .vi-block { display: block; }
+body.lang-vi .en-block { display: none; }
+/* for flex */
+.vi-flex { display: none; }
+.en-flex { display: flex; }
+body.lang-vi .vi-flex { display: flex; }
+body.lang-vi .en-flex { display: none; }
+
+/* ═══════════════════════════════════════════
+   SUMMARY SECTION
+═══════════════════════════════════════════ */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0;
+}
+.sum-item {
+  padding: 16px 18px;
+  border-right: 1px solid #F3F4F6;
+  border-bottom: 1px solid #F3F4F6;
+  text-align: center;
+}
+.sum-icon { font-size: 28px; margin-bottom: 8px; }
+.sum-title { font-size: 13px; font-weight: 900; color: var(--gray1); margin-bottom: 4px; }
+.sum-text { font-size: 12px; color: var(--gray3); line-height: 1.4; }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+.footer {
+  background: rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  border-radius: 16px;
+  padding: 20px 24px;
+  text-align: center;
+  color: rgba(255,255,255,0.5);
+  font-size: 13px; font-weight: 500;
+  margin-top: 16px;
+}
+.footer strong { color: rgba(255,255,255,0.8); }
+
+/* ═══════════════════════════════════════════
+   MOBILE
+═══════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .topnav { padding: 0 12px; }
+  .topnav-brand span:not(.brand-icon) { display: none; }
+  .nav-center { display: none; }
+  .wrapper { padding: 70px 10px 40px; }
+  .hero { padding: 32px 20px; }
+  .concepts-grid { grid-template-columns: 1fr; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .subtype-grid { grid-template-columns: 1fr; }
+  .feat-grid { grid-template-columns: 1fr; }
+  .summary-grid { grid-template-columns: 1fr 1fr; }
+  .section-header { font-size: 13px; }
+  .hero h1 { font-size: 26px; }
+  .lang-btn span:not(.flag) { display: none; }
+}
+@media (max-width: 768px) {
+  .toc { grid-template-columns: 1fr 1fr; }
+}
+
+/* ═══════════════════════════════════════════
+   SCROLL PROGRESS BAR
+═══════════════════════════════════════════ */
+.progress-bar {
+  position: fixed; top: 60px; left: 0; right: 0;
+  height: 3px; background: transparent; z-index: 999;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--sky), var(--gold));
+  width: 0%;
+  transition: width 0.1s;
+}
+
+/* ═══════════════════════════════════════════
+   BACK TO TOP
+═══════════════════════════════════════════ */
+.back-top {
+  position: fixed; bottom: 24px; right: 20px; z-index: 900;
+  width: 44px; height: 44px;
+  background: var(--sky);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 18px;
+  cursor: pointer; border: none;
+  box-shadow: 0 4px 16px rgba(59,130,246,0.4);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s, transform 0.2s;
+}
+.back-top.visible { opacity: 1; pointer-events: auto; }
+.back-top:hover { transform: translateY(-2px); }
+
+/* INLINE LANG SWITCH */
+.lang-text { }
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar"><div class="progress-fill" id="progress"></div></div>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <div class="topnav-brand">
+    <div class="brand-icon">📘</div>
+    <span>Semantics</span>
+  </div>
+  <div class="nav-center">
+    <button class="nav-pill active" onclick="scrollTo('#def')">
+      <span class="en-only">Definition</span><span class="vi-only">Định nghĩa</span>
+    </button>
+    <button class="nav-pill" onclick="scrollTo('#rel')">
+      <span class="en-only">Relationships</span><span class="vi-only">Quan hệ</span>
+    </button>
+    <button class="nav-pill" onclick="scrollTo('#lex')">
+      <span class="en-only">Lexical</span><span class="vi-only">Từ vựng</span>
+    </button>
+    <button class="nav-pill" onclick="scrollTo('#comp')">
+      <span class="en-only">Compositional</span><span class="vi-only">Tổ hợp</span>
+    </button>
+    <button class="nav-pill" onclick="scrollTo('#feat')">
+      <span class="en-only">Features</span><span class="vi-only">Đặc trưng</span>
+    </button>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')">
+      <span class="flag">🇬🇧</span><span>EN</span>
+    </button>
+    <button class="lang-btn" id="btn-vi" onclick="setLang('vi')">
+      <span class="flag">🇻🇳</span><span>VI</span>
+    </button>
+  </div>
+</nav>
+
+<div class="wrapper">
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-tag">Group 9 · Nhóm 9</div>
+  <h1>SEMANTICS</h1>
+  <div class="hero-sub en-block">The Study of Linguistic Meaning</div>
+  <div class="hero-sub vi-block">Ngữ Nghĩa Học – Nghiên cứu Ý Nghĩa Ngôn Ngữ</div>
+  <div class="hero-meta">
+    <div class="hero-chip">👩‍🎓 Mao Thị Ngọc Thảo</div>
+    <div class="hero-chip">👨‍🎓 Nguyễn Việt Đức</div>
+    <div class="hero-chip">📚 <span class="en-only">Lecturer:</span><span class="vi-only">Giảng viên:</span> Th.S Ngô Phương Thủy</div>
+  </div>
+</div>
+
+<!-- ═══ TABLE OF CONTENTS ═══ -->
+<div class="toc">
+  <a class="toc-item" href="#def">
+    <div class="toc-num" style="background:#2255A4">I</div>
+    <div><div class="toc-label en-block">Definition of Semantics</div><div class="toc-label vi-block">Định Nghĩa Ngữ Nghĩa Học</div><div class="toc-sub en-block">What it studies</div><div class="toc-sub vi-block">Đối tượng nghiên cứu</div></div>
+  </a>
+  <a class="toc-item" href="#rel">
+    <div class="toc-num" style="background:#0D7377">II</div>
+    <div><div class="toc-label en-block">Basic Semantic Relationships</div><div class="toc-label vi-block">Quan Hệ Ngữ Nghĩa Cơ Bản</div><div class="toc-sub en-block">13 relationships</div><div class="toc-sub vi-block">13 quan hệ</div></div>
+  </a>
+  <a class="toc-item" href="#lex">
+    <div class="toc-num" style="background:#5B2D8E">III</div>
+    <div><div class="toc-label en-block">Lexical Semantics</div><div class="toc-label vi-block">Ngữ Nghĩa Từ Vựng</div><div class="toc-sub en-block">Reference, sense & roles</div><div class="toc-sub vi-block">Tham chiếu, ý nghĩa & vai</div></div>
+  </a>
+  <a class="toc-item" href="#comp">
+    <div class="toc-num" style="background:#166534">IV</div>
+    <div><div class="toc-label en-block">Compositional Semantics</div><div class="toc-label vi-block">Ngữ Nghĩa Tổ Hợp</div><div class="toc-sub en-block">Rules & truth conditions</div><div class="toc-sub vi-block">Quy tắc & điều kiện chân trị</div></div>
+  </a>
+  <a class="toc-item" href="#feat">
+    <div class="toc-num" style="background:#0F2044">V</div>
+    <div><div class="toc-label en-block">Semantic Features</div><div class="toc-label vi-block">Đặc Trưng Ngữ Nghĩa</div><div class="toc-sub en-block">Decomposition of meaning</div><div class="toc-sub vi-block">Phân tích ý nghĩa</div></div>
+  </a>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION I: DEFINITION
+═══════════════════════════════════════════ -->
+<div class="section c-blue" id="def">
+  <div class="section-header">
+    <div class="sh-num">I</div>
+    <span class="en-only">Definition of Semantics</span>
+    <span class="vi-only">Định Nghĩa Ngữ Nghĩa Học</span>
+  </div>
+  <div class="section-body">
+    <div class="concept-full">
+      <div class="def-box blue" style="font-size:15px;font-weight:700;">
+        <span class="en-only">Semantics is the study of <strong>linguistic meaning</strong> — the meaning of morphemes, words, phrases, and sentences.</span>
+        <span class="vi-only">Ngữ nghĩa học là ngành nghiên cứu <strong>ý nghĩa ngôn ngữ</strong> — ý nghĩa của hình vị, từ, cụm từ và câu.</span>
+      </div>
+      <div class="def-box gold">
+        <span class="en-only">💡 In other words: Semantics is how <strong>meaning</strong> is encoded and decoded in language — from individual words to full sentences.</span>
+        <span class="vi-only">💡 Nói cách khác: Ngữ nghĩa học nghiên cứu cách <strong>ý nghĩa</strong> được mã hóa và giải mã trong ngôn ngữ — từ từng từ đơn lẻ đến toàn bộ câu văn.</span>
+      </div>
+
+      <div class="compare-grid">
+        <div class="compare-box cb-blue">
+          <div class="compare-box-h">
+            <span class="en-only">🛒 "buy"</span>
+            <span class="vi-only">🛒 "buy" (mua)</span>
+          </div>
+          <div class="compare-box-b">
+            <span class="en-only">To acquire something for money. Used in everyday, informal contexts.<br><em>Example: I bought a coffee.</em></span>
+            <span class="vi-only">Mua lại thứ gì đó bằng tiền. Dùng trong ngữ cảnh thường ngày, không trang trọng.<br><em>Ví dụ: I bought a coffee. (Tôi mua một ly cà phê.)</em></span>
+          </div>
+        </div>
+        <div class="compare-box cb-teal">
+          <div class="compare-box-h">
+            <span class="en-only">🏛️ "purchase"</span>
+            <span class="vi-only">🏛️ "purchase" (mua/thu mua)</span>
+          </div>
+          <div class="compare-box-b">
+            <span class="en-only">Same denotation as "buy", but more formal in register.<br><em>Example: The company purchased new equipment.</em></span>
+            <span class="vi-only">Cùng nghĩa gốc với "buy" nhưng mang sắc thái trang trọng hơn.<br><em>Ví dụ: The company purchased new equipment. (Công ty đã thu mua thiết bị mới.)</em></span>
+          </div>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--gray3);margin-top:10px;font-style:italic;">
+        <span class="en-only">→ This distinction — same meaning, different register — is exactly what semantics studies.</span>
+        <span class="vi-only">→ Sự phân biệt này — cùng nghĩa nhưng khác phong cách — chính là điều ngữ nghĩa học nghiên cứu.</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION II: BASIC SEMANTIC RELATIONSHIPS
+═══════════════════════════════════════════ -->
+<div class="section c-teal" id="rel">
+  <div class="section-header">
+    <div class="sh-num">II</div>
+    <span class="en-only">Basic Semantic Relationships</span>
+    <span class="vi-only">Quan Hệ Ngữ Nghĩa Cơ Bản</span>
+  </div>
+  <div class="section-body">
+    <div class="concepts-grid">
+
+      <!-- 1. Paraphrase -->
+      <div class="concept-card">
+        <div class="cc-num-row">
+          <div class="cc-num" style="background:#0D7377">1</div>
+          <div><div class="cc-title">Paraphrase</div><div class="cc-subtitle vi-only">Diễn giải / Nói lại</div></div>
+        </div>
+        <div class="cc-def en-block">One statement is a paraphrase of another when it has the <strong>same meaning</strong>.</div>
+        <div class="cc-def vi-block">Một phát ngôn là diễn giải của phát ngôn khác khi chúng có <strong>cùng nghĩa</strong>.</div>
+        <div class="cc-examples">
+          <div class="cc-ex-label">Examples</div>
+          <div class="cc-ex-item">
+            <div class="en">"Philip purchased an automobile" ≈ "Philip bought a car"</div>
+            <div class="vi vi-only">Philip mua xe hơi ≈ Philip mua ô tô</div>
+          </div>
+          <div class="cc-ex-item">
+            <div class="en">"She was unhappy." ≈ "She felt sad."</div>
+            <div class="vi vi-only">Cô ấy không vui ≈ Cô ấy cảm thấy buồn</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Entailment -->
+      <div class="concept-card">
+        <div class="cc-num-row">
+          <div class="cc-num" style="background:#0D7377">2</div>
+          <div><div class="cc-title">Entailment</div><div class="cc-subtitle vi-only">Sự bao hàm / Kéo theo</div></div>
+        </div>
+        <div class="cc-def en-block">One statement <strong>entails</strong> another when the second is a logically necessary consequence of the first.</div>
+        <div class="cc-def vi-block">Phát ngôn A <strong>kéo theo</strong> phát ngôn B khi B là hệ quả tất yếu về mặt logic của A.</div>
+        <div class="cc-examples">
+          <div class="cc-ex-label">Example</div>
+          <div class="cc-ex-item">
+            <div class="en">"Viet Duc lives in Dong Thap" <span class="ex-arrow">→</span> "Viet Duc lives in Vietnam"</div>
+            <div class="vi vi-only">Việt Đức sống ở Đồng Tháp <span class="ex-arrow">→</span> Việt Đức sống ở Việt Nam</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Inclusion -->
+      <div class="concept-card">
+        <div class="cc-num-row">
+          <div class="cc-num" style="background:#0D7377">3</div>
+          <div><div class="cc-title">Inclusion</div><div class="cc-subtitle vi-only">Quan hệ bao gộp</div></div>
+        </div>
+        <div class="cc-def en-block">One statement <strong>includes</strong> another — a broader category includes the narrower one.</div>
+        <div class="cc-def vi-block">Một phát ngôn <strong>bao gộp</strong> phát ngôn kia — phạm trù rộng hơn bao gồm phạm trù hẹp hơn.</div>
+        <div class="cc-examples">
+          <div class="cc-ex-item">
+            <div class="en">"I like fruit" <span class="ex-arrow">⊃</span> "I like apples" <em>(apples ⊂ fruit)</em></div>
+            <div class="vi vi-only">"Tôi thích trái cây" ⊃ "Tôi thích táo" (táo là loại trái cây)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Contradiction -->
+      <div class="concept-card">
+        <div class="cc-num-row">
+          <div class="cc-num" style="background:#0D7377">4</div>
+          <div><div class="cc-title">Contradiction</div><div class="cc-subtitle vi-only">Mâu thuẫn</div></div>
+        </div>
+        <div class="cc-def en-block">Two statements are <strong>contradictory</strong> — if one is true, the other must be false.</div>
+        <div class="cc-def vi-block">Hai phát ngôn <strong>mâu thuẫn</strong> nhau — nếu một cái đúng thì cái kia phải sai.</div>
+        <div class="cc-examples">
+          <div class="cc-ex-item">
+            <div class="en">"He is an orphan" ✗ "His parents are living"</div>
+            <div class="vi vi-only">"Anh ta là trẻ mồ côi" ✗ "Bố mẹ anh ta vẫn còn sống"</div>
+          </div>
+          <div class="cc-ex-item">
+            <div class="en">"I spit out the beer I swallowed" ✗ (self-contradictory)</div>
+            <div class="vi vi-only">"Tôi nhổ ra bia mà tôi đã nuốt" (tự mâu thuẫn)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Anomaly -->
+      <div class="concept-card">
+        <div class="cc-num-row">
+          <div class="cc-num" style="background:#0D7377">5</div>
+          <div><div class="cc-title">Anomaly</div><div class="cc-subtitle vi-only">Dị thường / Vi phạm quy tắc ngữ nghĩa</div></div>
+        </div>
+        <div class="cc-def en-block">A sentence that has <strong>no meaning</strong> in the everyday world — it violates semantic rules.</div>
+        <div class="cc-def vi-block">Câu <strong>vô nghĩa</strong> trong thực tế — vi phạm các quy tắc ngữ nghĩa thông thường.</div>
+        <div class="cc-examples">
+          <div class="cc-ex-item">
+            <div class="en">"He swallowed a dream" 🌀</div>
+            <div class="vi vi-only">"Anh ta nuốt một giấc mơ" (phi lý về mặt nghĩa)</div>
+          </div>
+          <div class="cc-ex-item">
+            <div class="en">"The rock giggled." 😂</div>
+            <div class="vi vi-only">"Tảng đá khúc khích cười." (sai về đặc trưng ngữ nghĩa)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6. Ambiguity -->
+      <div class="concept-card">
+        <div class="cc-num-row">
+          <div class="cc-num" style="background:#0D7377">6</div>
+          <div><div class="cc-title">Ambiguity</div><div class="cc-subtitle vi-only">Sự mơ hồ</div></div>
+        </div>
+        <div class="cc-def en-block">A word, phrase, or sentence has <strong>more than one distinct meaning</strong>.</div>
+        <div class="cc-def vi-block">Một từ, cụm từ hoặc câu có <strong>nhiều hơn một nghĩa</strong> riêng biệt.</div>
+        <div class="subtype-grid">
+          <div class="subtype-box">
+            <div class="subtype-box-h" style="background:#0D7377">
+              <span class="en-only">Lexical Ambiguity</span>
+              <span class="vi-only">Mơ hồ từ vựng</span>
+            </div>
+            <div class="subtype-box-b">
+              <span class="en-only">One word, multiple meanings.<br><em>"smart" = clever OR painful</em></span>
+              <span class="vi-only">Một từ có nhiều nghĩa.<br><em>"smart" = thông minh HOẶC đau rát</em></span>
+            </div>
+          </div>
+          <div class="subtype-box">
+            <div class="subtype-box-h" style="background:#0F5F63">
+              <span class="en-only">Structural Ambiguity</span>
+              <span class="vi-only">Mơ hồ cấu trúc</span>
+            </div>
+            <div class="subtype-box-b">
+              <span class="en-only">Same words, two grammatical structures.<br><em>"The boy saw the man with a telescope"</em></span>
+              <span class="vi-only">Cùng từ, hai cấu trúc ngữ pháp khác nhau.<br><em>"Cậu bé nhìn thấy người đàn ông bằng kính thiên văn"</em></span>
+            </div>
+          </div>
+        </div>
+        <div class="cc-examples" style="margin-top:8px;">
+          <div class="cc-ex-label">Structural — 2 Meanings</div>
+          <div class="cc-ex-item">
+            <div class="en"><strong>M1 (PP→Noun):</strong> The boy saw a man who had a telescope.</div>
+            <div class="vi vi-only"><strong>Nghĩa 1 (PP bổ nghĩa danh từ):</strong> Cậu bé nhìn thấy một người đàn ông — người đó đang cầm kính thiên văn.</div>
+          </div>
+          <div class="cc-ex-item">
+            <div class="en"><strong>M2 (PP→Verb):</strong> The boy used a telescope to see the man.</div>
+            <div class="vi vi-only"><strong>Nghĩa 2 (PP bổ nghĩa động từ):</strong> Cậu bé dùng kính thiên văn để nhìn thấy người đàn ông.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7. Denotation & Connotation -->
+      <div class="concept-card">
+        <div class="cc-num-row">
+          <div class="cc-num" style="background:#0D7377">7</div>
+          <div><div class="cc-title">Denotation & Connotation</div><div class="cc-subtitle vi-only">Nghĩa gốc & Nghĩa hàm ý</div></div>
+        </div>
+        <div class="cc-def en-block">Words have <strong>literal meanings</strong> (denotation) and also evoke feelings or attitudes (connotations).</div>
+        <div class="cc-def vi-block">Từ có <strong>nghĩa gốc</strong> (denotation) và cũng gợi lên cảm xúc hay thái độ (connotation).</div>
+        <div class="compare-grid">
+          <div class="compare-box cb-blue">
+            <div class="compare-box-h">soldier</div>
+            <div class="compare-box-b">
+              <span class="en-only">Neutral connotation — professional duty, service.</span>
+              <span class="vi-only">Sắc thái trung tính — nghĩa vụ nghề nghiệp, phục vụ.</span>
+            </div>
+          </div>
+          <div class="compare-box cb-orange">
+            <div class="compare-box-h">warrior</div>
+            <div class="compare-box-b">
+              <span class="en-only">Positive/heroic connotation — bravery, strength, honor.</span>
+              <span class="vi-only">Sắc thái anh hùng — dũng cảm, sức mạnh, danh dự.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8. Polysemy -->
+      <div class="concept-card">
+        <div class="cc-num-row">
+          <div class="cc-num" style="background:#0D7377">8</div>
+          <div><div class="cc-title">Polysemy</div><div class="cc-subtitle vi-only">Đa nghĩa (các nghĩa có liên quan)</div></div>
+        </div>
+        <div class="cc-def en-block">A word has <strong>more than one meaning</strong>, and the meanings are <strong>related</strong> to each other.</div>
+        <div class="cc-def vi-block">Một từ có <strong>nhiều hơn một nghĩa</strong>, và các nghĩa này <strong>có liên quan</strong> với nhau.</div>
+        <div class="cc-examples">
+          <div class="cc-ex-item">
+            <div class="en"><span class="ex-highlight">bright</span> <span class="ex-arrow">→</span> shining (light) · intelligent (person) · vivid (color)</div>
+            <div class="vi vi-only">bright: sáng bóng · thông minh · rực rỡ</div>
+          </div>
+          <div class="cc-ex-item">
+            <div class="en"><span class="ex-highlight">light</span> <span class="ex-arrow">→</span> not heavy · luminosity · a source of illumination</div>
+            <div class="vi vi-only">light: nhẹ · ánh sáng · nguồn chiếu sáng</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9. Synonymy -->
+      <div class="concept-card">
+        <div class="cc-num-row">
+          <div class="cc-num" style="background:#0D7377">9</div>
+          <div><div class="cc-title">Synonymy</div><div class="cc-subtitle vi-only">Đồng nghĩa</div></div>
+        </div>
+        <div class="cc-def en-block">Words that share the <strong>same or very similar meaning</strong> in some or all contexts.</div>
+        <div class="cc-def vi-block">Các từ có <strong>nghĩa giống hoặc rất giống nhau</strong> trong một số hoặc tất cả ngữ cảnh.</div>
+        <div class="cc-examples">
+          <div class="cc-ex-item">
+            <div class="en"><span class="ex-highlight">sofa</span> / <span class="ex-highlight">couch</span> — almost interchangeable in most contexts</div>
+            <div class="vi vi-only">sofa / ghế dài — gần như có thể dùng thay thế nhau</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10. Antonymy -->
+      <div class="concept-card">
+        <div class="cc-num-row">
+          <div class="cc-num" style="background:#0D7377">10</div>
+          <div><div class="cc-title">Antonymy</div><div class="cc-subtitle vi-only">Trái nghĩa</div></div>
+        </div>
+        <div class="cc-def en-block">Words <strong>opposite in meaning</strong>. Three main types:</div>
+        <div class="cc-def vi-block">Các từ có <strong>nghĩa đối lập</strong>. Ba loại chính:</div>
+        <div class="subtype-grid">
+          <div class="subtype-box">
+            <div class="subtype-box-h" style="background:#166534">
+              <span class="en-only">Complementary</span><span class="vi-only">Bổ sung</span>
+            </div>
+            <div class="subtype-box-b">
+              <span class="en-only">One excludes the other entirely.<br><em>alive/dead · present/absent</em></span>
+              <span class="vi-only">Một từ loại trừ từ kia hoàn toàn.<br><em>sống/chết · có mặt/vắng mặt</em></span>
+            </div>
+          </div>
+          <div class="subtype-box">
+            <div class="subtype-box-h" style="background:#1A5E38">
+              <span class="en-only">Gradable</span><span class="vi-only">Mức độ</span>
+            </div>
+            <div class="subtype-box-b">
+              <span class="en-only">Opposites on a scale, context-dependent.<br><em>big/small · hot/cold · fast/slow</em></span>
+              <span class="vi-only">Đối lập theo thang độ, phụ thuộc ngữ cảnh.<br><em>to/nhỏ · nóng/lạnh · nhanh/chậm</em></span>
+            </div>
+          </div>
+          <div class="subtype-box">
+            <div class="subtype-box-h" style="background:#14532D">
+              <span class="en-only">Relational Opposites</span><span class="vi-only">Đối lập quan hệ</span>
+            </div>
+            <div class="subtype-box-b">
+              <span class="en-only">Symmetrical roles.<br><em>give/receive · buy/sell · teacher/pupil</em></span>
+              <span class="vi-only">Vai trò đối xứng nhau.<br><em>cho/nhận · mua/bán · giáo viên/học sinh</em></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 11. Homonymy -->
+      <div class="concept-card">
+        <div class="cc-num-row">
+          <div class="cc-num" style="background:#0D7377">11</div>
+          <div><div class="cc-title">Homonymy</div><div class="cc-subtitle vi-only">Đồng âm</div></div>
+        </div>
+        <div class="cc-def en-block">Words that share the same <strong>spelling and/or pronunciation</strong> but have <strong>entirely different, unrelated meanings</strong>.</div>
+        <div class="cc-def vi-block">Các từ có cùng <strong>chính tả và/hoặc phát âm</strong> nhưng mang <strong>nghĩa hoàn toàn khác nhau, không liên quan</strong>.</div>
+        <div class="cc-examples">
+          <div class="cc-ex-item">
+            <div class="en"><span class="ex-highlight">bank</span> <span class="ex-arrow">→</span> edge of a river <strong>OR</strong> a financial institution</div>
+            <div class="vi vi-only">bank: bờ sông HOẶC ngân hàng</div>
+          </div>
+          <div class="cc-ex-item">
+            <div class="en"><span class="ex-highlight">bat</span> <span class="ex-arrow">→</span> a flying mammal <strong>OR</strong> a piece of sports equipment</div>
+            <div class="vi vi-only">bat: con dơi HOẶC cái gậy thể thao</div>
+          </div>
+        </div>
+        <div class="def-box blue" style="margin-top:10px;font-size:12px;">
+          <strong>Polysemy vs Homonymy:</strong>
+          <span class="en-only"> Polysemy = related meanings (bright → shining / intelligent). Homonymy = completely unrelated meanings (bank → river / money).</span>
+          <span class="vi-only"> Đa nghĩa = các nghĩa liên quan (bright: sáng / thông minh). Đồng âm = nghĩa hoàn toàn không liên quan (bank: bờ sông / ngân hàng).</span>
+        </div>
+      </div>
+
+      <!-- 12. Part-Whole -->
+      <div class="concept-card">
+        <div class="cc-num-row">
+          <div class="cc-num" style="background:#0D7377">12</div>
+          <div><div class="cc-title">Part-Whole (Meronymy)</div><div class="cc-subtitle vi-only">Quan hệ bộ phận – tổng thể</div></div>
+        </div>
+        <div class="cc-def en-block">A word denotes <strong>part of a whole</strong>. Called <em>meronymy</em>.</div>
+        <div class="cc-def vi-block">Một từ biểu thị <strong>bộ phận của một tổng thể</strong>. Gọi là <em>quan hệ sáp nhập</em>.</div>
+        <div class="cc-examples">
+          <div class="cc-ex-item">
+            <div class="en"><span class="ex-highlight">wheel</span> is a meronym of <span class="ex-highlight">car</span></div>
+            <div class="vi vi-only">bánh xe là bộ phận của ô tô</div>
+          </div>
+          <div class="cc-ex-item">
+            <div class="en"><span class="ex-highlight">finger</span> is a meronym of <span class="ex-highlight">hand</span></div>
+            <div class="vi vi-only">ngón tay là bộ phận của bàn tay</div>
+          </div>
+          <div class="cc-ex-item">
+            <div class="en">Also: fender→car · week→month · branch→tree · binding→book</div>
+            <div class="vi vi-only">Thêm: cánh trước→ô tô · tuần→tháng · cành→cây</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 13. Presupposition -->
+      <div class="concept-card">
+        <div class="cc-num-row">
+          <div class="cc-num" style="background:#0D7377">13</div>
+          <div><div class="cc-title">Presupposition</div><div class="cc-subtitle vi-only">Tiền giả định</div></div>
+        </div>
+        <div class="cc-def en-block">An <strong>implicit assumption</strong> that a statement takes for granted as background knowledge — must be true for the statement to make sense.</div>
+        <div class="cc-def vi-block">Một <strong>giả định ngầm</strong> mà phát ngôn coi là kiến thức nền — phải đúng để câu có nghĩa.</div>
+        <div class="cc-examples">
+          <div class="cc-ex-item">
+            <div class="en">"Her brother is an engineer." <span class="ex-arrow">→</span> presupposes she has a brother.</div>
+            <div class="vi vi-only">"Anh trai cô ấy là kỹ sư." → tiền giả định: cô ấy có anh trai.</div>
+          </div>
+          <div class="cc-ex-item">
+            <div class="en">"Do you know the time?" <span class="ex-arrow">→</span> presupposes a specific time exists.</div>
+            <div class="vi vi-only">"Bạn có biết mấy giờ rồi không?" → tiền giả định: có một thời điểm cụ thể tồn tại.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- end concepts-grid -->
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION III: LEXICAL SEMANTICS
+═══════════════════════════════════════════ -->
+<div class="section c-purple" id="lex">
+  <div class="section-header">
+    <div class="sh-num">III</div>
+    <span class="en-only">Lexical Semantics</span>
+    <span class="vi-only">Ngữ Nghĩa Từ Vựng</span>
+  </div>
+  <div class="section-body">
+
+    <div class="concept-full">
+      <div class="def-box purple" style="font-size:14px;font-weight:700;">
+        <span class="en-only">Lexical semantics studies the meaning of <strong>individual words, morphemes, and fixed expressions</strong>.</span>
+        <span class="vi-only">Ngữ nghĩa từ vựng nghiên cứu ý nghĩa của <strong>từng từ, hình vị và biểu thức cố định</strong>.</span>
+      </div>
+    </div>
+
+    <!-- A. Theories of Word Meaning -->
+    <div class="concept-full">
+      <div style="font-size:14px;font-weight:900;color:var(--purple);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.3px;">
+        A. <span class="en-only">Theories of Word Meaning</span><span class="vi-only">Các Lý Thuyết về Nghĩa Từ</span>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-box cb-purple">
+          <div class="compare-box-h">
+            <span class="en-only">1. Reference (Sở chỉ)</span>
+            <span class="vi-only">1. Tham Chiếu (Reference)</span>
+          </div>
+          <div class="compare-box-b">
+            <p class="en-block">The <strong>reference</strong> of a word is its association with the <strong>real-world object or entity</strong> it points to — called the <em>referent</em>.</p>
+            <p class="vi-block"><strong>Tham chiếu</strong> của một từ là sự liên kết của từ đó với <strong>đối tượng hoặc thực thể trong thế giới thực</strong> mà nó chỉ đến — gọi là <em>referent</em> (đối tượng được chỉ).</p>
+            <div class="cc-ex-item" style="margin-top:8px;">
+              <div class="en-block">"The president of the United States" and "Donald Trump" (in 2026) share the same <strong>referent</strong>, but their meanings differ.</div>
+              <div class="vi-block">"Tổng thống Hoa Kỳ" và "Donald Trump" (năm 2026) cùng chỉ một <strong>referent</strong>, nhưng nghĩa của chúng không giống nhau.</div>
+            </div>
+          </div>
+        </div>
+        <div class="compare-box" style="border-color:#7C3AED;">
+          <div class="compare-box-h" style="background:#7C3AED;">
+            <span class="en-only">2. Sense (Nội hàm)</span>
+            <span class="vi-only">2. Nội Hàm (Sense)</span>
+          </div>
+          <div class="compare-box-b" style="background:#F5F3FF;">
+            <p class="en-block">The <strong>sense</strong> of a word is its <strong>semantic content beyond reference</strong> — the conceptual information associated with it.</p>
+            <p class="vi-block"><strong>Nội hàm</strong> của một từ là <strong>nội dung ngữ nghĩa vượt ra ngoài tham chiếu</strong> — thông tin khái niệm gắn liền với từ đó.</p>
+            <div class="cc-ex-item" style="margin-top:8px;">
+              <div class="en-block">Words like <span class="ex-highlight">unicorn</span> or <span class="ex-highlight">Godzilla</span> have <strong>sense</strong> (we know what they mean) but <strong>no real-world referent</strong>.</div>
+              <div class="vi-block">Những từ như <span class="ex-highlight">kỳ lân</span> hay <span class="ex-highlight">Godzilla</span> có <strong>nội hàm</strong> (chúng ta biết chúng có nghĩa gì) nhưng <strong>không có referent trong thực tế</strong>.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- B. Argument Structure -->
+    <div class="concept-full">
+      <div style="font-size:14px;font-weight:900;color:var(--purple);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.3px;">
+        B. <span class="en-only">Argument Structure & Thematic Roles</span><span class="vi-only">Cấu Trúc Tham Tố & Vai Nghĩa</span>
+      </div>
+      <div class="def-box purple">
+        <span class="en-only">Verbs encode information about their <strong>argument structure</strong> — the number and type of phrases they require — and assign <strong>thematic roles</strong> to those arguments.</span>
+        <span class="vi-only">Động từ mã hóa thông tin về <strong>cấu trúc tham tố</strong> — số lượng và loại cụm từ mà chúng đòi hỏi — và gán <strong>vai nghĩa</strong> cho các tham tố đó.</span>
+      </div>
+
+      <div style="font-size:13px;font-weight:800;color:var(--gray2);margin:12px 0 8px;">
+        <span class="en-only">1. Argument Structure — Verb Types</span>
+        <span class="vi-only">1. Cấu Trúc Tham Tố — Phân loại Động từ</span>
+      </div>
+      <table class="bi-table">
+        <thead><tr>
+          <th><span class="en-only">Verb Type</span><span class="vi-only">Loại Động Từ</span></th>
+          <th><span class="en-only">Arguments</span><span class="vi-only">Tham Tố</span></th>
+          <th><span class="en-only">Example</span><span class="vi-only">Ví Dụ</span></th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Intransitive</strong><br><span class="vi-only" style="font-size:12px;color:var(--gray3);">Nội động từ</span></td>
+            <td><span class="en-only">1 (subject only)</span><span class="vi-only">1 (chỉ chủ ngữ)</span></td>
+            <td><em>The dog <strong>arrived</strong>.</em></td>
+          </tr>
+          <tr>
+            <td><strong>Transitive</strong><br><span class="vi-only" style="font-size:12px;color:var(--gray3);">Ngoại động từ</span></td>
+            <td><span class="en-only">2 (subject + object)</span><span class="vi-only">2 (chủ ngữ + tân ngữ)</span></td>
+            <td><em>The boy <strong>kicked</strong> the ball.</em></td>
+          </tr>
+          <tr>
+            <td><strong>Ditransitive</strong><br><span class="vi-only" style="font-size:12px;color:var(--gray3);">Song ngoại động từ</span></td>
+            <td><span class="en-only">3 (subject + two objects)</span><span class="vi-only">3 (chủ ngữ + hai tân ngữ)</span></td>
+            <td><em>John <strong>threw</strong> Mary the ball.</em></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="font-size:13px;font-weight:800;color:var(--gray2);margin:14px 0 8px;">
+        <span class="en-only">2. Thematic Roles (Theta Roles)</span>
+        <span class="vi-only">2. Vai Nghĩa (Theta Roles)</span>
+      </div>
+      <div>
+        <div class="role-item">
+          <div class="role-tag" style="background:#5B2D8E;">Agent</div>
+          <div class="role-content">
+            <span class="en-only"><strong>The deliberate doer</strong> of the action.</span>
+            <span class="vi-only"><strong>Chủ thể thực hiện</strong> hành động có chủ đích.</span>
+            <div class="role-vi vi-only">Vai Tác thể</div>
+            <div class="role-ex">"The boy rolled the ball." → "the boy" = Agent</div>
+          </div>
+        </div>
+        <div class="role-item">
+          <div class="role-tag" style="background:#7C3AED;">Theme</div>
+          <div class="role-content">
+            <span class="en-only">The entity that <strong>undergoes the action</strong> or is affected by it.</span>
+            <span class="vi-only">Thực thể <strong>chịu tác động</strong> của hành động.</span>
+            <div class="role-vi vi-only">Vai Đối thể</div>
+            <div class="role-ex">"The boy rolled the ball." → "the ball" = Theme</div>
+          </div>
+        </div>
+        <div class="role-item">
+          <div class="role-tag" style="background:#0D7377;">Goal</div>
+          <div class="role-content">
+            <span class="en-only">The <strong>endpoint</strong> of movement or change.</span>
+            <span class="vi-only"><strong>Điểm đến</strong> của sự chuyển dịch hoặc thay đổi.</span>
+            <div class="role-vi vi-only">Vai Đích</div>
+            <div class="role-ex">"The boy threw the ball to the girl." → "the girl" = Goal</div>
+          </div>
+        </div>
+        <div class="role-item">
+          <div class="role-tag" style="background:#166534;">Source</div>
+          <div class="role-content">
+            <span class="en-only">The <strong>starting point</strong> of movement.</span>
+            <span class="vi-only"><strong>Điểm xuất phát</strong> của sự chuyển dịch.</span>
+            <div class="role-vi vi-only">Vai Nguồn</div>
+            <div class="role-ex">"Mary bought the book from John." → "John" = Source</div>
+          </div>
+        </div>
+        <div class="role-item">
+          <div class="role-tag" style="background:#C2410C;">Instrument</div>
+          <div class="role-content">
+            <span class="en-only">The <strong>means</strong> used to carry out the action.</span>
+            <span class="vi-only"><strong>Phương tiện</strong> thực hiện hành động.</span>
+            <div class="role-vi vi-only">Vai Công cụ</div>
+            <div class="role-ex">"Professor Snape awakened Harry with his wand." → "his wand" = Instrument</div>
+          </div>
+        </div>
+        <div class="role-item">
+          <div class="role-tag" style="background:#9B1C1C;">Experiencer</div>
+          <div class="role-content">
+            <span class="en-only">The entity that <strong>receives sensory or emotional input</strong>.</span>
+            <span class="vi-only">Thực thể <strong>tiếp nhận tác động cảm xúc hoặc cảm giác</strong>.</span>
+            <div class="role-vi vi-only">Vai Nghiệm thể</div>
+            <div class="role-ex">"The storm frightened the children." → "the children" = Experiencer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION IV: COMPOSITIONAL SEMANTICS
+═══════════════════════════════════════════ -->
+<div class="section c-green" id="comp">
+  <div class="section-header">
+    <div class="sh-num">IV</div>
+    <span class="en-only">Compositional Semantics</span>
+    <span class="vi-only">Ngữ Nghĩa Tổ Hợp</span>
+  </div>
+  <div class="section-body">
+    <div class="concept-full">
+      <div class="def-box green" style="font-size:14px;font-weight:700;">
+        <span class="en-only">The meaning of a sentence is built from: <strong>(1)</strong> the meanings of its individual parts (words or morphemes) and <strong>(2)</strong> the rules used to combine those parts (syntax / grammatical structure).</span>
+        <span class="vi-only">Nghĩa của một câu được xây dựng từ: <strong>(1)</strong> nghĩa của các thành phần riêng lẻ (từ hoặc hình vị) và <strong>(2)</strong> các quy tắc kết hợp chúng (cú pháp / cấu trúc ngữ pháp).</span>
+      </div>
+
+      <div style="font-size:13px;font-weight:800;color:var(--green);margin:12px 0 8px;text-transform:uppercase;letter-spacing:0.3px;">
+        <span class="en-only">Semantic Rules</span><span class="vi-only">Các Quy Tắc Ngữ Nghĩa</span>
+      </div>
+
+      <table class="bi-table">
+        <thead><tr>
+          <th><span class="en-only">Expression Type</span><span class="vi-only">Loại biểu thức</span></th>
+          <th><span class="en-only">Meaning</span><span class="vi-only">Nghĩa</span></th>
+          <th><span class="en-only">Example</span><span class="vi-only">Ví dụ</span></th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><strong><span class="en-only">Proper Names</span><span class="vi-only">Danh từ riêng</span></strong><br><em style="font-size:11px;color:var(--gray3);">Jack, Laura</em></td>
+            <td><span class="en-only">Refer to a specific, unique individual in the real world.</span><span class="vi-only">Chỉ đến một cá thể cụ thể, duy nhất trong thực tế.</span></td>
+            <td><em>Jack, Laura, Hanoi…</em></td>
+          </tr>
+          <tr>
+            <td><strong><span class="en-only">Predicates</span><span class="vi-only">Vị từ</span></strong><br><em style="font-size:11px;color:var(--gray3);">V, ADJ, Common N</em></td>
+            <td><span class="en-only">Refer to a <strong>set of individuals</strong> with shared traits.</span><span class="vi-only">Chỉ đến một <strong>tập hợp các cá thể</strong> có đặc điểm chung.</span></td>
+            <td><em>swim → {all who swim}</em></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Rule I -->
+      <div style="margin-top:16px;">
+        <div style="font-size:13px;font-weight:900;color:var(--green);margin-bottom:8px;">
+          📐 <span class="en-only">Semantic Rule I — Intransitive Sentence (NP + VP)</span><span class="vi-only">Quy Tắc Ngữ Nghĩa I — Câu Nội Động (NP + VP)</span>
+        </div>
+        <div class="compare-grid">
+          <div class="compare-box cb-green">
+            <div class="compare-box-h"><span class="en-only">Structure</span><span class="vi-only">Cấu trúc</span></div>
+            <div class="compare-box-b">
+              <span class="en-only">TP → NP (subject) + VP (intransitive predicate)<br><em>Ellen sings · Max barks</em></span>
+              <span class="vi-only">TP → NP (chủ ngữ) + VP (vị ngữ nội động)<br><em>Ellen hát · Max sủa</em></span>
+            </div>
+          </div>
+          <div class="compare-box" style="border-color:#14532D;">
+            <div class="compare-box-h" style="background:#14532D;"><span class="en-only">Truth Condition</span><span class="vi-only">Điều kiện chân trị</span></div>
+            <div class="compare-box-b" style="background:var(--green-lt);">
+              <span class="en-only">The sentence is <strong>TRUE</strong> if and only if the individual denoted by NP is a member of the set denoted by VP. Otherwise, <strong>FALSE</strong>.</span>
+              <span class="vi-only">Câu <strong>ĐÚNG</strong> khi và chỉ khi cá thể được NP biểu thị thuộc vào tập hợp được VP biểu thị. Ngược lại, câu <strong>SAI</strong>.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rule II -->
+      <div style="margin-top:14px;">
+        <div style="font-size:13px;font-weight:900;color:var(--green);margin-bottom:8px;">
+          📐 <span class="en-only">Semantic Rule II — Transitive Sentence (NP + V + NP)</span><span class="vi-only">Quy Tắc Ngữ Nghĩa II — Câu Ngoại Động (NP + V + NP)</span>
+        </div>
+        <div class="def-box green">
+          <span class="en-only">Example: <strong>"Jack kissed Laura"</strong></span>
+          <span class="vi-only">Ví dụ: <strong>"Jack hôn Laura"</strong></span>
+        </div>
+        <table class="bi-table">
+          <thead><tr>
+            <th><span class="en-only">Step</span><span class="vi-only">Bước</span></th>
+            <th><span class="en-only">Mechanism</span><span class="vi-only">Cơ chế</span></th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td><strong><span class="en-only">Step 1</span><span class="vi-only">Bước 1</span></strong><br><em style="font-size:11px;color:var(--gray3);">Transitive Verb</em></td>
+              <td><span class="en-only"><em>kiss</em> denotes a set of <strong>pairs (X, Y)</strong> where X is the kisser and Y is the kissee.</span><span class="vi-only"><em>kiss</em> biểu thị một tập hợp <strong>các cặp (X, Y)</strong> trong đó X là người hôn và Y là người được hôn.</span></td>
+            </tr>
+            <tr>
+              <td><strong><span class="en-only">Step 2</span><span class="vi-only">Bước 2</span></strong><br><em style="font-size:11px;color:var(--gray3);">Rule II Applied</em></td>
+              <td><span class="en-only">When V combines with its object (Laura), the VP meaning <strong>shrinks to a set of single individuals</strong> — all X who kissed Laura.</span><span class="vi-only">Khi V kết hợp với tân ngữ (Laura), nghĩa của VP <strong>thu nhỏ thành tập hợp một ngôi</strong> — tất cả X đã hôn Laura.</span></td>
+            </tr>
+            <tr>
+              <td><strong><span class="en-only">Rule I Applied</span><span class="vi-only">Áp dụng Quy Tắc I</span></strong></td>
+              <td><span class="en-only">The full sentence is <strong>TRUE</strong> if Jack belongs to that set of individuals who kissed Laura.</span><span class="vi-only">Câu đầy đủ là <strong>ĐÚNG</strong> nếu Jack thuộc vào tập hợp những người đã hôn Laura.</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SECTION V: SEMANTIC FEATURES
+═══════════════════════════════════════════ -->
+<div class="section c-navy" id="feat">
+  <div class="section-header">
+    <div class="sh-num">V</div>
+    <span class="en-only">Semantic Features</span>
+    <span class="vi-only">Đặc Trưng Ngữ Nghĩa</span>
+  </div>
+  <div class="section-body">
+    <div class="concept-full">
+      <div class="def-box blue" style="font-size:14px;font-weight:700;">
+        <span class="en-only">Words can be decomposed into <strong>semantic features</strong> — the most basic properties of meaning. They clarify how words relate to each other.</span>
+        <span class="vi-only">Các từ có thể được phân tích thành <strong>đặc trưng ngữ nghĩa</strong> — các thuộc tính cơ bản nhất của nghĩa. Chúng làm rõ cách các từ liên quan với nhau.</span>
+      </div>
+
+      <div style="font-size:13px;font-weight:800;color:var(--navy);margin:12px 0 8px;">
+        <span class="en-only">Antonyms & Shared Features</span><span class="vi-only">Từ Trái Nghĩa & Đặc Trưng Chung</span>
+      </div>
+      <div class="def-box blue">
+        <span class="en-only">Antonyms must <strong>share a principal semantic feature</strong> but differ within it.</span>
+        <span class="vi-only">Từ trái nghĩa phải <strong>chia sẻ một đặc trưng ngữ nghĩa chính</strong> nhưng khác nhau trong đặc trưng đó.</span>
+      </div>
+
+      <table class="bi-table">
+        <thead><tr>
+          <th><span class="en-only">Pair</span><span class="vi-only">Cặp từ</span></th>
+          <th><span class="en-only">Shared Feature</span><span class="vi-only">Đặc trưng chung</span></th>
+          <th><span class="en-only">Difference</span><span class="vi-only">Sự khác biệt</span></th>
+        </tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="ex-highlight">wet</span> / <span class="ex-highlight">dry</span></td>
+            <td><span class="en-only">liquid</span><span class="vi-only">chất lỏng</span></td>
+            <td><span class="en-only">opposite states</span><span class="vi-only">trạng thái đối lập</span></td>
+          </tr>
+          <tr>
+            <td><span class="ex-highlight">buy</span> / <span class="ex-highlight">sell</span></td>
+            <td><span class="en-only">change in possession</span><span class="vi-only">sự thay đổi sở hữu</span></td>
+            <td><span class="en-only">direction of change</span><span class="vi-only">chiều hướng thay đổi</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="def-box gold" style="margin-top:12px;">
+        <span class="en-only">⚠️ <strong>"big"</strong> and <strong>"red"</strong> are NOT antonyms because their principal features are completely different: <em>size</em> vs <em>color</em>. Antonyms must share a domain.</span>
+        <span class="vi-only">⚠️ <strong>"big"</strong> và <strong>"red"</strong> KHÔNG phải từ trái nghĩa vì đặc trưng chính của chúng hoàn toàn khác nhau: <em>kích thước</em> vs <em>màu sắc</em>. Từ trái nghĩa phải cùng phạm trù.</span>
+      </div>
+
+      <!-- Assassin example -->
+      <div style="margin-top:14px;">
+        <div style="font-size:13px;font-weight:900;color:var(--navy);margin-bottom:8px;">
+          <span class="en-only">🔎 Semantic Analysis: "The assassin killed Thwacklehurst."</span>
+          <span class="vi-only">🔎 Phân tích ngữ nghĩa: "Tên sát nhân đã giết Thwacklehurst."</span>
+        </div>
+        <div class="feat-grid">
+          <div class="feat-box">
+            <div class="feat-box-title"><span class="en-only">assassin</span><span class="vi-only">assassin (sát thủ)</span></div>
+            <div class="feat-box-sub"><span class="en-only">Semantic features:</span><span class="vi-only">Đặc trưng ngữ nghĩa:</span></div>
+            <div class="feat-box-ex">[+human] [+murderer]<br>[+kills important people]</div>
+          </div>
+          <div class="feat-box">
+            <div class="feat-box-title"><span class="en-only">Thwacklehurst (victim)</span><span class="vi-only">Thwacklehurst (nạn nhân)</span></div>
+            <div class="feat-box-sub"><span class="en-only">Presupposed features:</span><span class="vi-only">Đặc trưng tiền giả định:</span></div>
+            <div class="feat-box-ex">[+important person]<br>[+not average citizen]</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Evidence -->
+      <div style="margin-top:14px;">
+        <div style="font-size:13px;font-weight:900;color:var(--navy);margin-bottom:8px;">
+          <span class="en-only">🧠 Evidence for Semantic Features: Slips of the Tongue</span>
+          <span class="vi-only">🧠 Bằng chứng cho Đặc Trưng Ngữ Nghĩa: Lỡ lời</span>
+        </div>
+        <div class="def-box blue">
+          <span class="en-only">Semantic features are not directly observable. But <strong>"slips of the tongue"</strong> reveal them: when speakers accidentally substitute one word for another, the incorrect word <strong>always shares semantic features</strong> with the intended word. Substitutions are never random.</span>
+          <span class="vi-only">Đặc trưng ngữ nghĩa không thể quan sát trực tiếp. Nhưng hiện tượng <strong>"lỡ lời"</strong> tiết lộ chúng: khi người nói vô tình thay một từ bằng từ khác, từ sai <strong>luôn chia sẻ đặc trưng ngữ nghĩa</strong> với từ dự định. Sự thay thế không bao giờ ngẫu nhiên.</span>
+        </div>
+        <div class="def-box gold">
+          <span class="en-only">⚠️ Important: Do NOT confuse the <strong>linguistic meaning</strong> of a word with its <strong>non-linguistic or physical properties</strong>. You do not need to know non-linguistic facts to understand and use a word correctly.</span>
+          <span class="vi-only">⚠️ Quan trọng: Đừng nhầm lẫn <strong>nghĩa ngôn ngữ</strong> của một từ với <strong>thuộc tính phi ngôn ngữ hoặc vật lý</strong> của nó. Bạn không cần biết các sự thật phi ngôn ngữ để hiểu và dùng từ đúng cách.</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     SUMMARY
+═══════════════════════════════════════════ -->
+<div class="section" style="margin-bottom:16px;">
+  <div class="section-header" style="background:linear-gradient(135deg,#0F2044,#2255A4);border-radius:var(--r);">
+    <div class="sh-num">📋</div>
+    <span class="en-only">Summary</span>
+    <span class="vi-only">Tóm Tắt</span>
+  </div>
+  <div class="section-body" style="border-color:#2255A4;">
+    <div class="summary-grid">
+      <div class="sum-item">
+        <div class="sum-icon">📘</div>
+        <div class="sum-title"><span class="en-only">Semantics</span><span class="vi-only">Ngữ nghĩa học</span></div>
+        <div class="sum-text"><span class="en-only">Study of linguistic meaning — from morphemes to sentences.</span><span class="vi-only">Nghiên cứu ý nghĩa ngôn ngữ — từ hình vị đến câu.</span></div>
+      </div>
+      <div class="sum-item">
+        <div class="sum-icon">🔗</div>
+        <div class="sum-title"><span class="en-only">Relationships</span><span class="vi-only">Quan hệ ngữ nghĩa</span></div>
+        <div class="sum-text"><span class="en-only">13 types: paraphrase, entailment, contradiction, ambiguity, synonymy, antonymy…</span><span class="vi-only">13 loại: diễn giải, kéo theo, mâu thuẫn, mơ hồ, đồng nghĩa, trái nghĩa…</span></div>
+      </div>
+      <div class="sum-item">
+        <div class="sum-icon">📖</div>
+        <div class="sum-title"><span class="en-only">Lexical</span><span class="vi-only">Từ vựng</span></div>
+        <div class="sum-text"><span class="en-only">Reference vs Sense. Argument structure & 6 thematic roles.</span><span class="vi-only">Tham chiếu vs Nội hàm. Cấu trúc tham tố & 6 vai nghĩa.</span></div>
+      </div>
+      <div class="sum-item">
+        <div class="sum-icon">⚖️</div>
+        <div class="sum-title"><span class="en-only">Compositional</span><span class="vi-only">Tổ hợp</span></div>
+        <div class="sum-text"><span class="en-only">Rules I & II build meaning from parts + structure + truth conditions.</span><span class="vi-only">Quy tắc I & II xây dựng nghĩa từ thành phần + cấu trúc + điều kiện chân trị.</span></div>
+      </div>
+      <div class="sum-item">
+        <div class="sum-icon">🔬</div>
+        <div class="sum-title"><span class="en-only">Features</span><span class="vi-only">Đặc trưng</span></div>
+        <div class="sum-text"><span class="en-only">Basic properties of meaning. Slips of tongue are evidence. Don't confuse linguistic with physical meaning.</span><span class="vi-only">Thuộc tính cơ bản nhất của nghĩa. Lỡ lời là bằng chứng. Không nhầm nghĩa ngôn ngữ với thuộc tính vật lý.</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <strong>Group 9 · Nhóm 9</strong> &nbsp;|&nbsp; Mao Thị Ngọc Thảo &nbsp;·&nbsp; Nguyễn Việt Đức<br>
+  <span style="font-size:12px;">Lecturer: Th.S Ngô Phương Thủy &nbsp;·&nbsp; SEMANTICS — Ngữ Nghĩa Học</span>
+</div>
+
+</div><!-- end wrapper -->
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+/* ── LANGUAGE SWITCH ── */
+function setLang(lang) {
+  document.body.classList.toggle('lang-vi', lang === 'vi');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-vi').classList.toggle('active', lang === 'vi');
+  document.documentElement.lang = lang;
+  localStorage.setItem('pref-lang', lang);
+}
+
+/* ── SCROLL PROGRESS ── */
+window.addEventListener('scroll', function() {
+  var el = document.documentElement;
+  var pct = (el.scrollTop || document.body.scrollTop) / (el.scrollHeight - el.clientHeight) * 100;
+  document.getElementById('progress').style.width = pct + '%';
+  document.getElementById('backTop').classList.toggle('visible', (el.scrollTop || document.body.scrollTop) > 300);
+});
+
+/* ── NAV PILLS ACTIVE ── */
+function scrollTo(id) {
+  document.querySelector(id).scrollIntoView({behavior:'smooth'});
+}
+window.addEventListener('scroll', function() {
+  var ids = ['#def','#rel','#lex','#comp','#feat'];
+  var pills = document.querySelectorAll('.nav-pill');
+  var fromTop = (document.documentElement.scrollTop || document.body.scrollTop) + 90;
+  var current = 0;
+  ids.forEach(function(id, i) {
+    var el = document.querySelector(id);
+    if (el && el.offsetTop <= fromTop) current = i;
+  });
+  pills.forEach(function(p,i){ p.classList.toggle('active', i===current); });
+});
+
+/* ── RESTORE LANG PREF ── */
+(function(){
+  var saved = localStorage.getItem('pref-lang');
+  if (saved === 'vi') setLang('vi');
+})();
+</script>
+</body>
+</html>
